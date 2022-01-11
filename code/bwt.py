@@ -33,7 +33,7 @@ class bwt(object):
             tc += count
         return first      
 
-    def code(self, str):
+    def encode(self, str):
         str = self.__fix_str(str)
         bw = []
         for i in self.__sa(str):
