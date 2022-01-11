@@ -1,7 +1,15 @@
 class bwt(object):
 
-    def __init__(self, s):
-        self.str = s
+    def __init__(self, sc, fc):
+        # space character
+        self.sc = sc
+        # mark character
+        self.fc = fc
+        
+
+    def __fix_str(self, str):
+        str = str.replace(' ', self.sc)
+        return str + self.fc
 
     def __sa(self, s):
         st = sorted([(s[x:], x) for x in range(0, len(s))])
@@ -25,13 +33,14 @@ class bwt(object):
             tc += count
         return first      
 
-    def code(self):
+    def code(self, str):
+        str = self.__fix_str(str)
         bw = []
-        for i in self.__sa(self.str):
+        for i in self.__sa(str):
             if i == 0:
-                bw.append('$')
+                bw.append(self.fc)
             else:
-                bw.append(self.str[i-1])
+                bw.append(str[i-1])
 
         return ''.join(bw)        
     
@@ -39,13 +48,11 @@ class bwt(object):
         rks, ts = self.__rank(bw)
         first = self.__fc(ts)
         ri = 0
-        t = '$'
-        while bw[ri] != '$':
+        t = self.fc
+        while bw[ri] != self.fc:
             c = bw[ri]
             t = c + t            
             ri = first[c][0] + rks[ri]
-        return t
 
-
-
-
+        t = t.replace(self.sc, ' ')
+        return t[0:-1]
