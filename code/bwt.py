@@ -1,6 +1,6 @@
 from operator import itemgetter
 
-class bwt(object):
+class Bwt(object):
 
     def __init__(self, fc):
         # mark character
@@ -35,4 +35,4 @@ class bwt(object):
 
         S = [s[i] for i in Tx]
         S.reverse()
-        return S      
+        return S
